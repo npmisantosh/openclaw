@@ -752,21 +752,6 @@ export function renderConfig(props: ConfigProps) {
       <main class="config-main">
         <div class="config-actions">
           <div class="config-actions__left">
-            ${
-              hasChanges
-                ? html`
-	                  <span class="config-changes-badge"
-	                    >${
-                        formMode === "raw"
-                          ? "Unsaved changes"
-                          : `${diff.length} unsaved change${diff.length !== 1 ? "s" : ""}`
-                      }</span
-	                  >
-	                `
-                : html`
-                    <span class="config-status muted">No changes</span>
-                  `
-            }
           </div>
           <div class="config-actions__right">
             ${
