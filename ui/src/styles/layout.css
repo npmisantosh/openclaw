@@ -146,6 +146,13 @@
   min-width: 0;
 }
 
+.topnav-shell .dashboard-header__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
 .topnav-shell .dashboard-header__breadcrumb {
   display: flex;
   align-items: center;
@@ -163,6 +170,15 @@
 .topnav-shell .dashboard-header__breadcrumb-current {
   color: var(--text-strong);
   font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topnav-shell .dashboard-header__subtitle {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
