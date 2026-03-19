@@ -8,6 +8,7 @@ import { getSafeLocalStorage } from "../local-storage.ts";
 import { refreshChatAvatar } from "./app-chat.ts";
 import { renderUsageTab } from "./app-render-usage-tab.ts";
 import {
+  renderChatControls,
   renderChatMobileToggle,
   renderTab,
   renderSidebarConnectionStatus,
@@ -442,6 +443,7 @@ export function renderApp(state: AppViewState) {
             </button>
             <div class="topbar-status">
               ${state.lastError ? html`<div class="pill danger">${state.lastError}</div>` : nothing}
+              ${isChat ? renderChatControls(state) : nothing}
               ${isChat ? renderChatMobileToggle(state) : nothing}
               ${renderTopbarThemeModeToggle(state)}
             </div>
