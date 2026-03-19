@@ -10,6 +10,7 @@ import { renderUsageTab } from "./app-render-usage-tab.ts";
 import {
   renderChatControls,
   renderChatMobileToggle,
+  renderChatSessionSelect,
   renderTab,
   renderSidebarConnectionStatus,
   renderTopbarThemeModeToggle,
@@ -442,8 +443,7 @@ export function renderApp(state: AppViewState) {
               <kbd class="topbar-search__kbd">⌘K</kbd>
             </button>
             <div class="topbar-status">
-              ${state.lastError ? html`<div class="pill danger">${state.lastError}</div>` : nothing}
-              ${isChat ? renderChatControls(state) : nothing}
+              ${isChat ? nothing : state.lastError ? html`<div class="pill danger">${state.lastError}</div>` : nothing}
               ${isChat ? renderChatMobileToggle(state) : nothing}
               ${renderTopbarThemeModeToggle(state)}
             </div>
@@ -594,6 +594,20 @@ export function renderApp(state: AppViewState) {
                 ${icons.x}
               </button>
             </div>`
+            : nothing
+        }
+
+        ${
+          isChat
+            ? html`<section class="content-header content-header--chat">
+              <div class="content-header__start">
+                ${renderChatSessionSelect(state)}
+              </div>
+              <div class="content-header__end">
+                ${state.lastError ? html`<div class="pill danger">${state.lastError}</div>` : nothing}
+                ${renderChatControls(state)}
+              </div>
+            </section>`
             : nothing
         }
 
