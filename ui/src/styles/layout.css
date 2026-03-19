@@ -148,8 +148,9 @@
 
 .topnav-shell .dashboard-header__content {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   min-width: 0;
 }
 
@@ -182,6 +183,11 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.topnav-shell .dashboard-header__subtitle-sep {
+  color: var(--muted);
+  font-size: 10px;
 }
 
 .topbar-status {
