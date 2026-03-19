@@ -8,9 +8,7 @@ import { getSafeLocalStorage } from "../local-storage.ts";
 import { refreshChatAvatar } from "./app-chat.ts";
 import { renderUsageTab } from "./app-render-usage-tab.ts";
 import {
-  renderChatControls,
   renderChatMobileToggle,
-  renderChatSessionSelect,
   renderTab,
   renderSidebarConnectionStatus,
   renderTopbarThemeModeToggle,
@@ -81,7 +79,7 @@ import {
 import "./components/dashboard-header.ts";
 import { buildExternalLinkRel, EXTERNAL_LINK_TARGET } from "./external-link.ts";
 import { icons } from "./icons.ts";
-import { normalizeBasePath, TAB_GROUPS, subtitleForTab, titleForTab } from "./navigation.ts";
+import { normalizeBasePath, TAB_GROUPS } from "./navigation.ts";
 import { agentLogoUrl } from "./views/agents-utils.ts";
 import {
   resolveAgentConfig,
@@ -443,6 +441,7 @@ export function renderApp(state: AppViewState) {
               <kbd class="topbar-search__kbd">⌘K</kbd>
             </button>
             <div class="topbar-status">
+              ${state.lastError ? html`<div class="pill danger">${state.lastError}</div>` : nothing}
               ${isChat ? renderChatMobileToggle(state) : nothing}
               ${renderTopbarThemeModeToggle(state)}
             </div>
@@ -594,24 +593,6 @@ export function renderApp(state: AppViewState) {
               </button>
             </div>`
             : nothing
-        }
-        ${
-          state.tab === "config"
-            ? nothing
-            : html`<section class="content-header">
-              <div>
-                ${
-                  isChat
-                    ? renderChatSessionSelect(state)
-                    : html`<div class="page-title">${titleForTab(state.tab)}</div>`
-                }
-                ${isChat ? nothing : html`<div class="page-sub">${subtitleForTab(state.tab)}</div>`}
-              </div>
-              <div class="page-meta">
-                ${state.lastError ? html`<div class="pill danger">${state.lastError}</div>` : nothing}
-                ${isChat ? renderChatControls(state) : nothing}
-              </div>
-            </section>`
         }
 
         ${
