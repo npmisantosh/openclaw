@@ -226,9 +226,7 @@ describe("cron view", () => {
     expect(container.textContent).toContain("Latest runs for Daily ping.");
 
     const cards = Array.from(container.querySelectorAll(".card"));
-    const runHistoryCard = cards.find(
-      (card) => card.querySelector(".card-title")?.textContent?.trim() === "Run history",
-    );
+    const runHistoryCard = cards.find((card) => card.querySelector(".cron-run-filters") !== null);
     expect(runHistoryCard).not.toBeUndefined();
 
     const summaries = Array.from(

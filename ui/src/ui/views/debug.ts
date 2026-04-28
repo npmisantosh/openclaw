@@ -38,10 +38,7 @@ export function renderDebug(props: DebugProps) {
     <section class="grid">
       <div class="card">
         <div class="row" style="justify-content: space-between;">
-          <div>
-            <div class="card-title">Snapshots</div>
-            <div class="card-sub">Status, health, and heartbeat data.</div>
-          </div>
+          <div></div>
           <button class="btn" ?disabled=${props.loading} @click=${props.onRefresh}>
             ${props.loading ? t("common.refreshing") : t("common.refresh")}
           </button>
@@ -49,12 +46,14 @@ export function renderDebug(props: DebugProps) {
         <div class="stack" style="margin-top: 12px;">
           <div>
             <div class="muted">Status</div>
-            ${securitySummary
-              ? html`<div class="callout ${securityTone}" style="margin-top: 8px;">
+            ${
+              securitySummary
+                ? html`<div class="callout ${securityTone}" style="margin-top: 8px;">
                   Security audit: ${securityLabel}${info > 0 ? ` · ${info} info` : ""}. Run
                   <span class="mono">openclaw security audit --deep</span> for details.
                 </div>`
-              : nothing}
+                : nothing
+            }
             <pre class="code-block">${JSON.stringify(props.status ?? {}, null, 2)}</pre>
           </div>
           <div>
@@ -69,8 +68,10 @@ export function renderDebug(props: DebugProps) {
       </div>
 
       <div class="card">
-        <div class="card-title">Manual RPC</div>
-        <div class="card-sub">Send a raw gateway method with JSON params.</div>
+        <div class="row" style="justify-content: space-between;">
+          <div></div>
+          <div></div>
+        </div>
         <div class="stack" style="margin-top: 16px;">
           <label class="field">
             <span>Method</span>
@@ -79,9 +80,13 @@ export function renderDebug(props: DebugProps) {
               @change=${(e: Event) =>
                 props.onCallMethodChange((e.target as HTMLSelectElement).value)}
             >
-              ${!props.callMethod
-                ? html` <option value="" disabled>Select a method…</option> `
-                : nothing}
+              ${
+                !props.callMethod
+                  ? html`
+                      <option value="" disabled>Select a method…</option>
+                    `
+                  : nothing
+              }
               ${props.methods.map((m) => html`<option value=${m}>${m}</option>`)}
             </select>
           </label>
@@ -98,29 +103,33 @@ export function renderDebug(props: DebugProps) {
         <div class="row" style="margin-top: 12px;">
           <button class="btn primary" @click=${props.onCall}>${t("common.call")}</button>
         </div>
-        ${props.callError
-          ? html`<div class="callout danger" style="margin-top: 12px;">${props.callError}</div>`
-          : nothing}
-        ${props.callResult
-          ? html`<pre class="code-block" style="margin-top: 12px;">${props.callResult}</pre>`
-          : nothing}
+        ${
+          props.callError
+            ? html`<div class="callout danger" style="margin-top: 12px;">${props.callError}</div>`
+            : nothing
+        }
+        ${
+          props.callResult
+            ? html`<pre class="code-block" style="margin-top: 12px;">${props.callResult}</pre>`
+            : nothing
+        }
       </div>
     </section>
 
     <section class="card" style="margin-top: 18px;">
-      <div class="card-title">Models</div>
-      <div class="card-sub">Catalog from models.list.</div>
+      <div class="muted">Models</div>
       <pre class="code-block" style="margin-top: 12px;">
-${JSON.stringify(props.models ?? [], null, 2)}</pre
-      >
+${JSON.stringify(props.models ?? [], null, 2)}</pre>
     </section>
 
     <section class="card" style="margin-top: 18px;">
-      <div class="card-title">Event Log</div>
-      <div class="card-sub">Latest gateway events.</div>
-      ${props.eventLog.length === 0
-        ? html` <div class="muted" style="margin-top: 12px">No events yet.</div> `
-        : html`
+      <div class="muted">Event Log</div>
+      ${
+        props.eventLog.length === 0
+          ? html`
+              <div class="muted" style="margin-top: 12px">No events yet.</div>
+            `
+          : html`
             <div class="list debug-event-log" style="margin-top: 12px;">
               ${props.eventLog.map(
                 (evt) => html`
@@ -131,14 +140,14 @@ ${JSON.stringify(props.models ?? [], null, 2)}</pre
                     </div>
                     <div class="list-meta debug-event-log__meta">
                       <pre class="code-block debug-event-log__payload">
-${formatEventPayload(evt.payload)}</pre
-                      >
+${formatEventPayload(evt.payload)}</pre>
                     </div>
                   </div>
                 `,
               )}
             </div>
-          `}
+          `
+      }
     </section>
   `;
 }

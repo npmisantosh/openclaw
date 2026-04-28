@@ -168,6 +168,11 @@
   text-overflow: ellipsis;
 }
 
+.topnav-shell .dashboard-header__breadcrumb-desc {
+  color: var(--muted);
+  font-weight: normal;
+}
+
 .topbar-status {
   display: flex;
   align-items: center;

@@ -20,10 +20,7 @@ export function renderInstances(props: InstancesProps) {
   return html`
     <section class="card">
       <div class="row" style="justify-content: space-between;">
-        <div>
-          <div class="card-title">${t("instances.title")}</div>
-          <div class="card-sub">${t("instances.subtitle")}</div>
-        </div>
+        <div></div>
         <div class="row" style="gap: 8px;">
           <button
             class="btn btn--icon ${masked ? "" : "active"}"
@@ -43,16 +40,22 @@ export function renderInstances(props: InstancesProps) {
           </button>
         </div>
       </div>
-      ${props.lastError
-        ? html`<div class="callout danger" style="margin-top: 12px;">${props.lastError}</div>`
-        : nothing}
-      ${props.statusMessage
-        ? html`<div class="callout" style="margin-top: 12px;">${props.statusMessage}</div>`
-        : nothing}
+      ${
+        props.lastError
+          ? html`<div class="callout danger" style="margin-top: 12px;">${props.lastError}</div>`
+          : nothing
+      }
+      ${
+        props.statusMessage
+          ? html`<div class="callout" style="margin-top: 12px;">${props.statusMessage}</div>`
+          : nothing
+      }
       <div class="list" style="margin-top: 16px;">
-        ${props.entries.length === 0
-          ? html` <div class="muted">${t("instances.noInstances")}</div> `
-          : props.entries.map((entry) => renderEntry(entry, masked))}
+        ${
+          props.entries.length === 0
+            ? html` <div class="muted">${t("instances.noInstances")}</div> `
+            : props.entries.map((entry) => renderEntry(entry, masked))
+        }
       </div>
     </section>
   `;
@@ -90,9 +93,11 @@ function renderEntry(entry: PresenceEntry, masked: boolean) {
           ${scopesLabel ? html`<span class="chip">${scopesLabel}</span>` : nothing}
           ${entry.platform ? html`<span class="chip">${entry.platform}</span>` : nothing}
           ${entry.deviceFamily ? html`<span class="chip">${entry.deviceFamily}</span>` : nothing}
-          ${entry.modelIdentifier
-            ? html`<span class="chip">${entry.modelIdentifier}</span>`
-            : nothing}
+          ${
+            entry.modelIdentifier
+              ? html`<span class="chip">${entry.modelIdentifier}</span>`
+              : nothing
+          }
           ${entry.version ? html`<span class="chip">${entry.version}</span>` : nothing}
         </div>
       </div>
