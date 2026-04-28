@@ -58,7 +58,6 @@ export function renderLogs(props: LogsProps) {
     <section class="card">
       <div class="row" style="justify-content: space-between;">
         <div>
-          <div class="card-title">Logs</div>
           <div class="card-sub">Gateway file logs (JSONL).</div>
         </div>
         <div class="row" style="gap: 8px;">
@@ -115,25 +114,32 @@ export function renderLogs(props: LogsProps) {
         )}
       </div>
 
-      ${props.file
-        ? html`<div class="muted" style="margin-top: 10px;">File: ${props.file}</div>`
-        : nothing}
-      ${props.truncated
-        ? html`
-            <div class="callout" style="margin-top: 10px">
-              Log output truncated; showing latest chunk.
-            </div>
-          `
-        : nothing}
-      ${props.error
-        ? html`<div class="callout danger" style="margin-top: 10px;">${props.error}</div>`
-        : nothing}
+      ${
+        props.file
+          ? html`<div class="muted" style="margin-top: 10px;">File: ${props.file}</div>`
+          : nothing
+      }
+      ${
+        props.truncated
+          ? html`
+              <div class="callout" style="margin-top: 10px">Log output truncated; showing latest chunk.</div>
+            `
+          : nothing
+      }
+      ${
+        props.error
+          ? html`<div class="callout danger" style="margin-top: 10px;">${props.error}</div>`
+          : nothing
+      }
 
       <div class="log-stream" style="margin-top: 12px;" @scroll=${props.onScroll}>
-        ${filtered.length === 0
-          ? html` <div class="muted" style="padding: 12px">No log entries.</div> `
-          : filtered.map(
-              (entry) => html`
+        ${
+          filtered.length === 0
+            ? html`
+                <div class="muted" style="padding: 12px">No log entries.</div>
+              `
+            : filtered.map(
+                (entry) => html`
                 <div class="log-row">
                   <div class="log-time mono">${formatTime(entry.time)}</div>
                   <div class="log-level ${entry.level ?? ""}">${entry.level ?? ""}</div>
@@ -141,7 +147,8 @@ export function renderLogs(props: LogsProps) {
                   <div class="log-message mono">${entry.message ?? entry.raw}</div>
                 </div>
               `,
-            )}
+              )
+        }
       </div>
     </section>
   `;

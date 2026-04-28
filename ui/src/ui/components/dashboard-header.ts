@@ -1,7 +1,8 @@
 import { LitElement, html } from "lit";
-import { property } from "lit/decorators.js";
-import { titleForTab, type Tab } from "../navigation.js";
+import { customElement, property } from "lit/decorators.js";
+import { subtitleForTab, titleForTab, type Tab } from "../navigation.js";
 
+@customElement("dashboard-header")
 export class DashboardHeader extends LitElement {
   override createRenderRoot() {
     return this;
@@ -11,21 +12,22 @@ export class DashboardHeader extends LitElement {
 
   override render() {
     const label = titleForTab(this.tab);
+    const subtitle = subtitleForTab(this.tab);
 
     return html`
       <div class="dashboard-header">
-        <div class="dashboard-header__breadcrumb">
-          <span
-            class="dashboard-header__breadcrumb-link"
-            @click=${() =>
-              this.dispatchEvent(
-                new CustomEvent("navigate", { detail: "overview", bubbles: true, composed: true }),
-              )}
-          >
-            OpenClaw
-          </span>
-          <span class="dashboard-header__breadcrumb-sep">›</span>
-          <span class="dashboard-header__breadcrumb-current">${label}</span>
+        <div class="dashboard-header__content">
+          <div class="dashboard-header__breadcrumb">
+            <span
+              class="dashboard-header__breadcrumb-link"
+              @click=${() => this.dispatchEvent(new CustomEvent("navigate", { detail: "overview", bubbles: true, composed: true }))}
+            >
+              OpenClaw
+            </span>
+            <span class="dashboard-header__breadcrumb-sep">›</span>
+            <span class="dashboard-header__breadcrumb-current">${label}</span>
+          </div>
+          <div class="dashboard-header__subtitle">${subtitle}</div>
         </div>
         <div class="dashboard-header__actions">
           <slot></slot>
@@ -33,8 +35,4 @@ export class DashboardHeader extends LitElement {
       </div>
     `;
   }
-}
-
-if (!customElements.get("dashboard-header")) {
-  customElements.define("dashboard-header", DashboardHeader);
 }
